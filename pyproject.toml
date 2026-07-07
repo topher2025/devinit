@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devinit"
+version = "0.1.0"
+description = "Automatic Linux development environment setup tool"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+
+authors = [
+    { name = "Christopher Lewis" }
+]
+
+dependencies = [
+    "typer>=0.16.0",
+    "jinja2>=3.1.5"
+]
+
+[project.scripts]
+devinit = "devinit.main:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
