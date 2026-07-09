@@ -1,0 +1,21 @@
+[defaults]
+path = "."
+git = true
+docker = false
+entry = "main"
+gitignore = true
+license = "MIT"
+readme = true
+github = false
+public = false
+
+[python]
+version = "3.13"
+package_tool = "uv"
+linter = "black"
+pytest = true
+
+[python.flask]
+blueprints = false
+templates = true
+static = true

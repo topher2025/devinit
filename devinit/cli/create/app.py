@@ -1,6 +1,7 @@
 import typer
 
-from devinit.cli.create.python.app import app as python_app
+from devinit.cli.create.python import python
 
 app = typer.Typer()
-app.add_typer(python_app, name="python")
+app.add_typer(python, name="python")
+

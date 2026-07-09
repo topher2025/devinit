@@ -1,30 +1,39 @@
 from pathlib import Path
-from typing import Annotated
 
 import typer
 
 
-GitOption = Annotated[
-    bool | None,
-    typer.Option(None, "--git/--no-git"),
-]
+GitOption = typer.Option(
+    None,
+    "--git/--no-git",
+)
 
-DockerOption = Annotated[
-    bool | None,
-    typer.Option(None, "--docker/--no-docker"),
-]
+DockerOption = typer.Option(
+    None,
+    "--docker/--no-docker",
+)
 
-EntryOption = Annotated[
-    str | None,
-    typer.Option(None, "--entry"),
-]
+EntryOption = typer.Option(
+    None,
+    "--entry",
+)
 
-PathOption = Annotated[
-    Path | None,
-    typer.Option(None, "--path"),
-]
+PathOption = typer.Option(
+    None,
+    "--path",
+)
 
-VersionOption = Annotated[
-    str | None,
-    typer.Option(None, "--version"),
-]
+VersionOption = typer.Option(
+    None,
+    "--version",
+)
+
+GithubOption = typer.Option(
+    None,
+    "--github",
+)
+
+PublicOption = typer.Option(
+    None,
+    "--public/--private",
+)

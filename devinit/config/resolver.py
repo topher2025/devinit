@@ -1,2 +1,3 @@
-def resolve():
+def resolve(inputs: dict):
+    
     return {}

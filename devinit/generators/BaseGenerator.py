@@ -6,15 +6,17 @@ from jinja2 import Environment, FileSystemLoader
 class BaseGenerator:
     template_name: str
 
-    def get_template_root(self) -> Path:
+    @classmethod
+    def get_template_root(cls) -> Path:
         return (
             Path(__file__).parent.parent
             / "templates"
-            / self.template_name
+            / cls.template_name
         )
 
+    @classmethod
     def render_template_dir(
-        self,
+        cls,
         template_dir: Path,
         output_dir: Path,
         context: dict,
@@ -45,6 +47,7 @@ class BaseGenerator:
 
             if source_path.suffix == ".j2":
                 output_path = output_dir / rendered_relative.with_suffix("")
+                print(f"output: {output_path}")
 
                 # IMPORTANT:
                 # Use original relative path to find template
