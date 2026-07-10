@@ -11,7 +11,7 @@ from devinit.cli.option_defs import (
     VersionOption,
     GithubOption,
     PublicOption,
-    
+    LicenseOption,
 )
 from devinit.models import option_classes
 from devinit.config.config import Config
@@ -27,26 +27,20 @@ def flask(
     entry: str | None = EntryOption,
     path: Path | None = PathOption,
     version: str | None = VersionOption,
-    github: str | None = GithubOption,
+    github: bool | None = GithubOption,
     public: bool | None = PublicOption,
     blueprints: bool | None = typer.Option(
         None,
         "--blueprints/--no-blueprints",
     ),
+    license: str | None = LicenseOption,
 ):
     context = Config.resolve(locals(), "python", "flask")
-    output_dir = context["path"] / name
-    defaults = Config.load_defaults().unwrap()
-    context["project"] = name
-    context["path"] = output_dir
-    context["devinit_version"] = package_version("devinit")
-    context["license"] = defaults["defaults"]["license"]
-    context["license_type"] = context["license"]
-    generator = FlaskGenerator()
+
     updater(
         generator=FlaskGenerator,
         context=context,
         name=name,
-        output=output_dir
+        output=context["path"]
     )
 

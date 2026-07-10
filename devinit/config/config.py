@@ -1,6 +1,8 @@
 import tomlkit
 from importlib.resources import files
+from importlib.metadata import version
 from pathlib import Path
+from datetime import datetime
 
 
 
@@ -31,6 +33,17 @@ class Config:
                 resolved[k] = defaults[lang][k]
                 continue
             resolved[k] = defaults["defaults"][k]
+
+
+        resolved["path"] = Path(resolved["path"]) / resolved["name"]
+        resolved["devinit_version"] = version("devinit")
+        resolved["year"] = datetime.now().year
+        if "name" in preferences:
+            resolved["name"] = preferences["name"]
+        else:
+            print(defaults)
+            resolved["name"] = defaults["name"]
+
 
         return resolved
     

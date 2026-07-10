@@ -1,3 +1,5 @@
+name = "John Doe"
+
 [defaults]
 path = "."
 git = true
@@ -16,6 +18,6 @@ linter = "black"
 pytest = true
 
 [python.flask]
-blueprints = false
+blueprints = true
 templates = true
 static = true

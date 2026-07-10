@@ -13,15 +13,11 @@ class BaseGenerator:
             / "templates"
             / cls.template_name
         )
+    
 
-    @classmethod
-    def render_template_dir(
-        cls,
-        template_dir: Path,
-        output_dir: Path,
-        context: dict,
-    ):
-        env = Environment(
+    @staticmethod
+    def _load_env(template_dir):
+        return Environment(
             loader=FileSystemLoader(template_dir),
             keep_trailing_newline=True,
             block_start_string="{{%",
@@ -31,6 +27,15 @@ class BaseGenerator:
             comment_start_string="{{#",
             comment_end_string="#}}",
         )
+
+    @classmethod
+    def render_template_dir(
+        cls,
+        template_dir: Path,
+        output_dir: Path,
+        context: dict,
+    ):
+        env = cls._load_env(template_dir)
 
         for source_path in template_dir.rglob("*"):
             if source_path.is_dir():
@@ -75,3 +80,26 @@ class BaseGenerator:
                 output_path.write_bytes(
                     source_path.read_bytes()
                 )
+
+
+    @classmethod
+    def render_license(cls, context: dict):
+        if context["license"] == "":
+            return
+        output_path = context["path"] / "LICENSE"
+
+        if context["license"].upper() == "MIT":
+            template_path = "MIT.j2"
+        else:
+            return
+        
+        env = cls._load_env(
+            Path(__file__).parent.parent / "templates" / "license"
+        )
+        template = env.get_template(template_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            template.render(**context),
+            encoding="utf-8"
+        )
+            

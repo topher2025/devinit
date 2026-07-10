@@ -20,6 +20,10 @@ class FlaskGenerator(BaseGenerator):
         for pack in packs:
             cls.render_template_dir(template_root / pack, output_dir, context)
             yield {"level": "INFO", "category": "Template", "description": f"Rendered the '{pack}' pack"}
+
+        if context["license"]:
+            cls.render_license(context)
+            yield {"level": "INFO", "category": "Template", "description": f"Rendered the license pack"}
         
         for message in PostGenerator.run(context):
             yield message
@@ -43,4 +47,8 @@ class FlaskGenerator(BaseGenerator):
 
     @classmethod
     def cnt(cls, context):
-        return len(cls.compile_packs(context)) + PostGenerator.cnt(context)
+        return (
+            len(cls.compile_packs(context))
+            + PostGenerator.cnt(context)
+            + int(context["license"] != "")
+        )

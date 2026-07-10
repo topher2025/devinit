@@ -30,10 +30,15 @@ VersionOption = typer.Option(
 
 GithubOption = typer.Option(
     None,
-    "--github",
+    "--github/--no-github",
 )
 
 PublicOption = typer.Option(
     None,
     "--public/--private",
+)
+
+LicenseOption = typer.Option(
+    None,
+    "--license",
 )
