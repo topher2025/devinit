@@ -18,6 +18,8 @@ class FlaskGenerator(BaseGenerator):
 
         if context["blueprints"]:
             packs.append("blueprints")
+        else:
+            packs.append("basic")
         if context["docker"]:
             packs.append("docker")
         if context["git"]:
