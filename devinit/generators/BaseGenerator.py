@@ -47,7 +47,6 @@ class BaseGenerator:
 
             if source_path.suffix == ".j2":
                 output_path = output_dir / rendered_relative.with_suffix("")
-                print(f"output: {output_path}")
 
                 # IMPORTANT:
                 # Use original relative path to find template

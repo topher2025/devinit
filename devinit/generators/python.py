@@ -14,6 +14,19 @@ class FlaskGenerator(BaseGenerator):
         context: dict,
     ):
         template_root = cls.get_template_root()
+        
+        packs = cls.compile_packs(context)
+
+        for pack in packs:
+            cls.render_template_dir(template_root / pack, output_dir, context)
+            yield {"level": "INFO", "category": "Template", "description": f"Rendered the '{pack}' pack"}
+        
+        for message in PostGenerator.run(context):
+            yield message
+
+
+    @classmethod
+    def compile_packs(cls, context):
         packs = ["common"]
 
         if context["blueprints"]:
@@ -24,13 +37,10 @@ class FlaskGenerator(BaseGenerator):
             packs.append("docker")
         if context["git"]:
             packs.append("git")
-            
-        yield len(packs) + PostGenerator.cnt(context)
-        print(f"packs: {packs}")
 
-        for pack in packs:
-            cls.render_template_dir(template_root / pack, output_dir, context)
-            yield(f"Rendered the '{pack}' pack")
-        
-        for message in PostGenerator.run(context):
-            yield message
+        return packs
+
+
+    @classmethod
+    def cnt(cls, context):
+        return len(cls.compile_packs(context)) + PostGenerator.cnt(context)

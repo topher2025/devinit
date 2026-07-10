@@ -20,7 +20,7 @@ class Git:
         try:
             subprocess.run(
                 [self.git, "init"],
-                check=True, cwd=self.cwd)
+                check=True, cwd=self.cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             return True
         except Exception: return False
     
@@ -29,7 +29,7 @@ class Git:
         try:
             subprocess.run(
                 [self.git, "add", *args],
-                check=True, cwd=self.cwd)
+                check=True, cwd=self.cwd, stdout=subprocess.DEVNULL)
             return True
         except Exception: return False
 
@@ -38,6 +38,6 @@ class Git:
         try:
             subprocess.run(
                 [self.git, "commit", "-m", message],
-                check=True, cwd=self.cwd)
+                check=True, cwd=self.cwd, stdout=subprocess.DEVNULL)
             return True
         except Exception: return False

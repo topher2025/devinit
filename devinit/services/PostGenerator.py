@@ -12,11 +12,11 @@ class PostGenerator:
                 git.init()
                 git.add(".")
                 git.commit("Initial Commit")
-                yield "Initialized Git"
+                yield {"level": "INFO", "category": "Git", "description": "Initialized Git"}
             else:
-                yield "Failed to find git"
+                yield {"level": "WARNING", "category": "Git", "description": "Failed to find git"}
         if context["github"]:
-            yield "GitHub operations aren't supported yet"
+            yield {"level": "WARNING", "category": "GitHub", "description": "GitHub operations aren't supported yet"}
     
 
     @classmethod

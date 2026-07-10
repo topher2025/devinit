@@ -44,7 +44,7 @@ def flask(
     context["license_type"] = context["license"]
     generator = FlaskGenerator()
     updater(
-        generator=generator,
+        generator=FlaskGenerator,
         context=context,
         name=name,
         output=output_dir
