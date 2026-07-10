@@ -1,8 +1,8 @@
 import typer
-from devinit.cli.create.app import app as create_app
+from devinit.cli import app as cli
 
 app = typer.Typer()
-app.add_typer(create_app, name="create")
+app.add_typer(cli)
 
 
 if __name__ == "__main__":

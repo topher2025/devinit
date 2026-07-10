@@ -54,9 +54,31 @@ class Config:
 
     @classmethod
     def load_prefs(cls) -> tomlkit.TOMLDocument:
-        path = Path.home() / ".config" / "devinit" / "config.toml"
+        path = cls._pref_path()
 
         if not path.exists():
             return tomlkit.document()
 
         return tomlkit.parse(path.read_text(encoding="utf-8"))
+    
+
+    @staticmethod
+    def _pref_path():
+        return Path.home() / ".config" / "devinit" / "config.toml"
+    
+
+
+    @classmethod
+    def ensure_config(cls) -> Path:
+        path = cls._pref_path()
+
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+        if not path.exists():
+            path.write_text(
+                tomlkit.dumps(tomlkit.document()),
+                encoding="utf-8",
+            )
+
+        return path
+    
