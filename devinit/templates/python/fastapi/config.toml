@@ -1,0 +1,54 @@
+# ======================================================================
+# FastAPI
+# Added by devinit template: fastapi-web
+# ======================================================================
+
+[python.fastapi]
+
+## Project structure
+## Generate an HTML/Jinja web application
+# web = false
+
+## Organize endpoints using APIRouter
+# router = true
+
+
+## Database backend
+## Options: "none", "sqlite", "postgresql", "mysql"
+# database = "sqlite"
+
+## ORM
+## Requires: database != "none"
+## Options: "none", "sqlalchemy", "sqlmodel"
+# orm = "sqlalchemy"
+
+## Enable Alembic migrations
+## Requires: database != "none" && orm != "none"
+# migrations = true
+
+
+## Authentication
+## Options: "none", "jwt", "oauth"
+# auth = "none"
+
+
+## Generate async endpoints
+# async = true
+
+
+## Generate Docker support
+# docker = true
+
+## Python package manager
+## Options: "uv", "pip"
+# pm = "uv"
+
+
+## Initialize a Git repository
+# git = true
+
+## Create a GitHub repository
+# github = false
+
+## Generate GitHub Actions workflows
+# actions = false

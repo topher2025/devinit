@@ -1,0 +1,213 @@
+name = "fastapi-web"
+display_name = "FastAPI Application"
+version = "1.0.0"
+description = "A full FastAPI web application"
+language = "python"
+
+[requirements]
+python = ">=3.12"
+
+# ----------------------------------------------------------------------
+# Dependencies
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+
+[dependencies.auth.jwt]
+packages = [
+    "python-jose",
+    "passlib[bcrypt]"
+]
+
+[dependencies.auth.oauth]
+packages = [
+    "authlib"
+]
+
+# ----------------------------------------------------------------------
+
+[dependencies.base]
+packages = [
+    "fastapi",
+    "jinja2",
+    "python-multipart",
+    "uvicorn[standard]"
+]
+
+# ----------------------------------------------------------------------
+
+[dependencies.database.mysql]
+packages = [
+    "asyncmy"
+]
+
+[dependencies.database.postgresql]
+packages = [
+    "asyncpg"
+]
+
+[dependencies.database.sqlite]
+packages = [
+    "aiosqlite"
+]
+
+# ----------------------------------------------------------------------
+
+[dependencies.migrations]
+packages = [
+    "alembic"
+]
+
+# ----------------------------------------------------------------------
+
+[dependencies.orm.sqlalchemy]
+packages = [
+    "sqlalchemy"
+]
+
+[dependencies.orm.sqlmodel]
+packages = [
+    "sqlmodel"
+]
+
+# ----------------------------------------------------------------------
+# Arguments
+# ----------------------------------------------------------------------
+
+
+[arguments.actions]
+type = "boolean"
+description = "Generate GitHub Actions workflows"
+pack = "actions"
+default = false
+# ----------------------------------------------------------------------
+
+[arguments.async]
+type = "boolean"
+description = "Generate async endpoints"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.auth]
+type = "choice"
+description = "Authentication"
+default = "none"
+
+[arguments.auth.choices.jwt]
+pack = "auth/jwt"
+
+[arguments.auth.choices.none]
+pack = ""
+
+[arguments.auth.choices.oauth]
+pack = "auth/oauth"
+
+# ----------------------------------------------------------------------
+
+[arguments.database]
+type = "choice"
+description = "Database backend"
+default = "sqlite"
+
+[arguments.database.choices.mysql]
+pack = "db/mysql"
+
+[arguments.database.choices.none]
+pack = ""
+
+[arguments.database.choices.postgresql]
+pack = "db/postgresql"
+
+[arguments.database.choices.sqlite]
+pack = "db/sqlite"
+
+# ----------------------------------------------------------------------
+
+[arguments.docker]
+type = "boolean"
+description = "Generate Docker support"
+pack = "docker"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.git]
+type = "boolean"
+description = "Initialize a Git repository"
+pack = "git"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.github]
+type = "boolean"
+description = "Create a GitHub repository"
+requires = ["git"]
+pack = "github"
+default = false
+
+# ----------------------------------------------------------------------
+
+[arguments.migrations]
+type = "boolean"
+description = "Enable Alembic migrations"
+default = true
+requires = ["database", "orm"]
+pack = "migrations"
+
+# ----------------------------------------------------------------------
+
+[arguments.orm]
+type = "choice"
+description = "ORM"
+default = "sqlalchemy"
+requires = ["database"]
+
+[arguments.orm.choices.none]
+pack = ""
+
+[arguments.orm.choices.sqlalchemy]
+pack = "orm/sqlalchemy"
+
+[arguments.orm.choices.sqlmodel]
+pack = "orm/sqlmodel"
+
+# ----------------------------------------------------------------------
+
+[arguments.pm]
+type = "choice"
+default = "uv"
+description = "Python package manager"
+
+[arguments.pm.choices.pip]
+pack = ""
+
+[arguments.pm.choices.uv]
+pack = ""
+
+# ----------------------------------------------------------------------
+# Groups
+# ----------------------------------------------------------------------
+
+[arguments.router]
+type = "variant"
+group = "structure"
+description = "Use APIRouter modules"
+default = "none"
+
+[arguments.web]
+type = "variant"
+group = "structure"
+description = "Generate an HTML/Jinja web application"
+default = "none"
+
+# ----------------------------------------------------------------------
+# Variant Resolution
+# ----------------------------------------------------------------------
+
+[groups.structure]
+"" = "api"
+router = "api-router"
+web = "web"
+"router,web" = "web-router"
