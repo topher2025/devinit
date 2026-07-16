@@ -7,21 +7,40 @@ language = "python"
 [requirements]
 python = ">=3.12"
 
+
+[args]
+context = [
+    "fullname",
+    "year",
+]
+options = [
+  "actions",
+  "async",
+  "auth",
+  "database",
+  "docker",
+  "git",
+  "github",
+  "migrations",
+  "orm",
+  "pm",
+]
+
+
+
 # ----------------------------------------------------------------------
 # Dependencies
-# ----------------------------------------------------------------------
-
 # ----------------------------------------------------------------------
 
 [dependencies.auth.jwt]
 packages = [
     "python-jose",
-    "passlib[bcrypt]"
+    "passlib[bcrypt]",
 ]
 
 [dependencies.auth.oauth]
 packages = [
-    "authlib"
+    "authlib",
 ]
 
 # ----------------------------------------------------------------------
@@ -31,43 +50,43 @@ packages = [
     "fastapi",
     "jinja2",
     "python-multipart",
-    "uvicorn[standard]"
+    "uvicorn[standard]",
 ]
 
 # ----------------------------------------------------------------------
 
 [dependencies.database.mysql]
 packages = [
-    "asyncmy"
+    "asyncmy",
 ]
 
 [dependencies.database.postgresql]
 packages = [
-    "asyncpg"
+    "asyncpg",
 ]
 
 [dependencies.database.sqlite]
 packages = [
-    "aiosqlite"
+    "aiosqlite",
 ]
 
 # ----------------------------------------------------------------------
 
 [dependencies.migrations]
 packages = [
-    "alembic"
+    "alembic",
 ]
 
 # ----------------------------------------------------------------------
 
 [dependencies.orm.sqlalchemy]
 packages = [
-    "sqlalchemy"
+    "sqlalchemy",
 ]
 
 [dependencies.orm.sqlmodel]
 packages = [
-    "sqlmodel"
+    "sqlmodel",
 ]
 
 # ----------------------------------------------------------------------
@@ -143,7 +162,7 @@ default = true
 [arguments.github]
 type = "boolean"
 description = "Create a GitHub repository"
-requires = ["git"]
+requires = ["git",]
 pack = "github"
 default = false
 
@@ -153,7 +172,10 @@ default = false
 type = "boolean"
 description = "Enable Alembic migrations"
 default = true
-requires = ["database", "orm"]
+requires = [
+    "database",
+    "orm",
+]
 pack = "migrations"
 
 # ----------------------------------------------------------------------
@@ -162,7 +184,7 @@ pack = "migrations"
 type = "choice"
 description = "ORM"
 default = "sqlalchemy"
-requires = ["database"]
+requires = ["database",]
 
 [arguments.orm.choices.none]
 pack = ""
