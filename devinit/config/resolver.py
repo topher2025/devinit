@@ -18,7 +18,7 @@ class Resolver:
         ctx = cls.merge(defaults, ctx)
         ctx = cls.merge(prefs, ctx)
         ctx = cls.merge(cli, ctx)
-
+        ctx = cls._clean(ctx, manifest)
         return ctx
     
 
@@ -78,9 +78,9 @@ class Resolver:
         return merged
     
     @staticmethod
-    def _clean(ctx: dict, manifest: Manifest):
+    def _clean(ctx: dict, manifest: Manifest) -> dict:
         keys = []
-        new_ctx = []
+        new_ctx = {}
         keys.append(manifest.args.context)
         keys.append(manifest.args.options)
 
