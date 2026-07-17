@@ -9,10 +9,12 @@ class Resolver:
         else:
             cli = context
 
-        defaults = load_defaults_config()
-        prefs = load_config()
+        ctx = manifest.data
+        
+        defaults = load_defaults_config(lang=ctx["language"], framework=ctx["name"])
+        prefs = load_config(lang=ctx["language"], framework=ctx["name"])
 
-        ctx = manifest.to_dict()
+        
         ctx = cls.merge(defaults, ctx)
         ctx = cls.merge(prefs, ctx)
         ctx = cls.merge(cli, ctx)
@@ -74,3 +76,17 @@ class Resolver:
             merged.append(value)
 
         return merged
+    
+    @staticmethod
+    def _clean(ctx: dict, manifest: Manifest):
+        keys = []
+        new_ctx = []
+        keys.append(manifest.args.context)
+        keys.append(manifest.args.options)
+
+
+        for k, v in ctx.items():
+            if k in keys:
+                new_ctx[k] = v
+
+        return new_ctx
