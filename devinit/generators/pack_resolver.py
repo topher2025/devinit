@@ -1,12 +1,14 @@
 from devinit.generators.manifest import Manifest
 
 class PackResolver:
+    SHIPPED_PACKS: list = ["license", "git"]
+
     def __init__(self, manifest: Manifest, ctx: dict) -> None:
         self.manifest = manifest
         self.packs = []
         self.ctx = ctx
 
-    def resolve(self):
+    def resolve(self) -> None:
         self.select_packs()
         for pack in self.packs:
             self.render_pack(pack)
@@ -27,7 +29,7 @@ class PackResolver:
         return self.packs
         
     
-    def render_pack(self, pack):
+    def render_pack(self, pack: str) -> None:
         pass
 
 

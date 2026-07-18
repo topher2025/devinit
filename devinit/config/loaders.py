@@ -20,7 +20,7 @@ def _load_toml_dict(path: PathLike) -> dict:
     return _load_toml_document(path).unwrap()
 
 
-def _defaults_resource():
+def _defaults_resource() -> Traversable:
     return files("devinit.config").joinpath("defaults.config")
 
 

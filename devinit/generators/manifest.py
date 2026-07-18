@@ -6,7 +6,7 @@ from devinit.config.loaders import load_manifest
 
 
 class ConfigNode:
-    def __init__(self, data: dict):
+    def __init__(self, data: dict) -> None:
         for key, value in data.items():
             if isinstance(value, dict):
                 value = ConfigNode(value)
