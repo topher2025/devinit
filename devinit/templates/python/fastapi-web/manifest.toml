@@ -154,7 +154,6 @@ default = true
 [arguments.git]
 type = "boolean"
 description = "Initialize a Git repository"
-pack = "git"
 default = true
 
 # ----------------------------------------------------------------------
