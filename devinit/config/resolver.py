@@ -77,8 +77,8 @@ class Resolver:
 
         return merged
     
-    @staticmethod
-    def _clean(ctx: dict, manifest: Manifest) -> dict:
+    @classmethod
+    def _clean(cls, ctx: dict, manifest: Manifest) -> dict:
         keys = []
         new_ctx = {}
         keys.append(manifest.args.context)
@@ -89,4 +89,17 @@ class Resolver:
             if k in keys:
                 new_ctx[k] = v
 
+        for k, v in cls._add_reqs(ctx).items():
+            new_ctx[k] = v
+
         return new_ctx
+    
+    @staticmethod
+    def _add_reqs(ctx:dict) -> dict:
+        reqs = {}
+        reqs_list = ["src"]
+        for req in reqs_list:
+            if req in ctx: reqs[req] = ctx[req]
+            else: reqs[req] = ""
+
+        return reqs

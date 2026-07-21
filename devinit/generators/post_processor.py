@@ -1,2 +1,5 @@
 class PostProcessor:
-    pass
+    def __init__(self) -> None:
+        pass
+    def process(self) -> None:
+        return

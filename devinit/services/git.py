@@ -6,8 +6,7 @@ class Git:
     def __init__(self, cwd):
         self.git = shutil.which("git")
         self.cwd = cwd
-        if not self.git:
-            return None
+        if not self.git: return None
         else:
             try:
                 subprocess.run([self.git, "--version"], check=True, stdout=subprocess.PIPE, text=True, cwd=self.cwd)
