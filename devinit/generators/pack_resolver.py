@@ -48,6 +48,7 @@ class PackResolver:
         if self.shipped:
             return (
             resources.files("devinit.templates")
+            .joinpath(self.manifest.language)
             .joinpath(self.manifest.name)
             .joinpath(pack)
         )
@@ -110,9 +111,10 @@ class PackResolver:
 
 
     def render_file(self, source: Path | Traversable, pack_root: Path | Traversable, rel: Path) -> None:        
+        destination = Path(self.ctx["path"]) / self.ctx["project"]
         if Path(source.name).suffix == ".j2":
             # Remove the .j2 extension
-            destination = self.ctx["path"] / rel.with_suffix("")
+            destination /= rel.with_suffix("")
 
             template = self.env.from_string(source.read_text(encoding="utf-8"))
             rendered = template.render(self.ctx)
@@ -120,9 +122,10 @@ class PackResolver:
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_text(rendered, encoding="utf-8")
         else:
-            destination = self.ctx["path"] / rel
+            destination /= rel
             destination.parent.mkdir(parents=True, exist_ok=True)
 
             with source.open("rb") as src, destination.open("wb") as dst:
                 shutil.copyfileobj(src, dst)
         print(destination)
+        print(self.ctx["path"])

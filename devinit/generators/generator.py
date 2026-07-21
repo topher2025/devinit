@@ -22,7 +22,7 @@ class Generator:
     @classmethod
     def from_list(cls, template_path: Path, name:str, context:list, post_processor: PostProcessor = PostProcessor()) -> Generator:
         manifest = Manifest(template_path / "manifest.toml")
-        cxt = Resolver.resolve(context, manifest)
+        cxt = Resolver.resolve(context, manifest, project=name)
         return cls(manifest, cxt, post_processor)
     
 

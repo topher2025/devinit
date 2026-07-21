@@ -3,7 +3,7 @@ from devinit.config.loaders import *
 
 class Resolver:
     @classmethod
-    def resolve(cls, context: dict | list, manifest: Manifest) -> dict:
+    def resolve(cls, context: dict | list, manifest: Manifest, **kwargs) -> dict:
         if isinstance(context, list):
             cli = cls.list_to_dict(context)
         else:
@@ -18,8 +18,8 @@ class Resolver:
         ctx = cls.merge(prefs, ctx)
         ctx = cls.merge(cli, ctx)
         #ctx = cls._clean(ctx, manifest)
-        ctx = cls._add_reqs(ctx)
-
+        ctx = cls._add_reqs(ctx, kwargs)
+        print(ctx)
         return ctx
     
 
@@ -97,21 +97,19 @@ class Resolver:
                     if item in keys:
                         new_ctx[k] = item
 
-        for k, v in cls._add_reqs(ctx).items():
-            new_ctx[k] = v
-
         return new_ctx
     
     @staticmethod
-    def _add_reqs(ctx:dict) -> dict:
+    def _add_reqs(ctx:dict, inputs:dict={}) -> dict:
         reqs = {}
-        reqs_list = ["src"]
+        reqs_list = ["src", "project"]
 
         for k,v in ctx.items():
             reqs[k] = v
 
         for req in reqs_list:
             if req in ctx: reqs[req] = ctx[req]
+            elif req in inputs: reqs[req] = inputs[req]
             else: reqs[req] = ""
 
         return reqs
