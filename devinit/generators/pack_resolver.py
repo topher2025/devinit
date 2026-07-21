@@ -40,6 +40,7 @@ class PackResolver:
 
     def resolve(self) -> None:
         self.select_packs()
+        print(self.packs)
         for pack in self.packs:
             self.render_pack(pack)
 
@@ -69,10 +70,9 @@ class PackResolver:
         groups = {}
 
         for name, value in self.ctx.items():
-            if not hasattr(self.manifest.arguments, name):
-                continue
-
-            argument = getattr(self.manifest.arguments, name)
+            if hasattr(self.manifest.arguments, name):
+                argument = getattr(self.manifest.arguments, name)
+            else: continue
 
             # standalone pack
             if hasattr(argument, "pack") and value:
@@ -125,3 +125,4 @@ class PackResolver:
 
             with source.open("rb") as src, destination.open("wb") as dst:
                 shutil.copyfileobj(src, dst)
+        print(destination)

@@ -46,7 +46,7 @@ class Manifest(ConfigNode):
         self.data = load_manifest(path)
         self.full = load_manifest(path, flatten=False)
 
-        super().__init__(self.data)
+        super().__init__(self.full)
 
     def __getattr__(self, name):
         raise ManifestAttributeError(name)

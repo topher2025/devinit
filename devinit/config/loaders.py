@@ -21,7 +21,7 @@ def _load_toml_dict(path: PathLike) -> dict:
 
 
 def _defaults_resource() -> Traversable:
-    return files("devinit.config").joinpath("defaults.config")
+    return files("devinit.config").joinpath("defaults.toml")
 
 
 def _flatten(d: dict, r: bool = True) -> dict:
@@ -36,13 +36,15 @@ def _flatten(d: dict, r: bool = True) -> dict:
 
 
 def _load_framework(lang: str, framework: str, config: dict) -> dict:
+    load = {}
     try:
         load = dict(config["defaults"])
         load.update(_flatten(config[lang], r=False))
         load.update(_flatten(config[lang][framework]))
-        return load
     except KeyError:
-        return {}
+        pass
+    
+    return load
 
 
 

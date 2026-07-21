@@ -14,11 +14,12 @@ class Resolver:
         defaults = load_defaults_config(lang=ctx["language"], framework=ctx["name"])
         prefs = load_config(lang=ctx["language"], framework=ctx["name"])
 
-        
         ctx = cls.merge(defaults, ctx)
         ctx = cls.merge(prefs, ctx)
         ctx = cls.merge(cli, ctx)
-        ctx = cls._clean(ctx, manifest)
+        #ctx = cls._clean(ctx, manifest)
+        ctx = cls._add_reqs(ctx)
+
         return ctx
     
 
@@ -81,13 +82,20 @@ class Resolver:
     def _clean(cls, ctx: dict, manifest: Manifest) -> dict:
         keys = []
         new_ctx = {}
-        keys.append(manifest.args.context)
-        keys.append(manifest.args.options)
-
+        keys.extend(manifest.context)
+        keys.extend(manifest.options)
+        print(keys)
+        print()
+        print(ctx)
 
         for k, v in ctx.items():
             if k in keys:
                 new_ctx[k] = v
+                print(f"ctx \n{new_ctx}]\n")
+            if isinstance(v, list):
+                for item in v:
+                    if item in keys:
+                        new_ctx[k] = item
 
         for k, v in cls._add_reqs(ctx).items():
             new_ctx[k] = v
@@ -98,8 +106,14 @@ class Resolver:
     def _add_reqs(ctx:dict) -> dict:
         reqs = {}
         reqs_list = ["src"]
+
+        for k,v in ctx.items():
+            reqs[k] = v
+
         for req in reqs_list:
             if req in ctx: reqs[req] = ctx[req]
             else: reqs[req] = ""
 
         return reqs
+    
+

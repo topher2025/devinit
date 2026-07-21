@@ -21,3 +21,6 @@ pytest = true
 blueprints = true
 templates = true
 static = true
+
+[python.fastapi-web]
+git = false
