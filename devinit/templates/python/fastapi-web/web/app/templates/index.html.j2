@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ request.url_for('static', path='css/index.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <p class="eyebrow">FastAPI</p>
+        <h1>{{ name }}</h1>
+        <p class="lede">A clean starter for APIs, routers, and optional server-rendered pages.</p>
+        <a class="button" href="/healthz">Check health</a>
+    </main>
+    <script src="{{ request.url_for('static', path='js/index.js') }}"></script>
+</body>
+</html>

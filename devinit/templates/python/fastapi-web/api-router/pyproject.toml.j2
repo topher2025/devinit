@@ -1,0 +1,39 @@
+[project]
+name = "{{{ name }}}"
+version = "0.1.0"
+description = "FastAPI application"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+{{% if web != "none" %}}
+  "jinja2",
+  "python-multipart",
+{{% endif %}}
+{{% if auth == "jwt" %}}
+  "python-jose",
+  "passlib[bcrypt]",
+{{% endif %}}
+{{% if auth == "oauth" %}}
+  "authlib",
+{{% endif %}}
+{{% if database == "sqlite" %}}
+  "aiosqlite",
+{{% endif %}}
+{{% if database == "postgresql" %}}
+  "asyncpg",
+{{% endif %}}
+{{% if database == "mysql" %}}
+  "asyncmy",
+{{% endif %}}
+{{% if migrations %}}
+  "alembic",
+{{% endif %}}
+{{% if orm == "sqlalchemy" %}}
+  "sqlalchemy",
+{{% endif %}}
+{{% if orm == "sqlmodel" %}}
+  "sqlmodel",
+{{% endif %}}
+]

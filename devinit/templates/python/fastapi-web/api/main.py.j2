@@ -1,0 +1,33 @@
+from fastapi import FastAPI
+
+from app.api.health import router as health_router
+from app.core.config import settings
+
+app = FastAPI(title=settings.app_name)
+
+app.include_router(health_router)
+
+{{% if router != "none" %}}
+from app.api.router import api_router
+
+app.include_router(api_router)
+{{% endif %}}
+
+{{% if web != "none" %}}
+from fastapi.staticfiles import StaticFiles
+from app.web.routes import web_router
+
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.include_router(web_router)
+{{% endif %}}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "{{{ entry }}}:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )
