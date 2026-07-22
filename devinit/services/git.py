@@ -40,3 +40,8 @@ class Git:
                 check=True, cwd=self.cwd, stdout=subprocess.DEVNULL)
             return True
         except Exception: return False
+
+    def build_git(self):
+        self.init()
+        self.add(".")
+        self.commit("Initial Commit")

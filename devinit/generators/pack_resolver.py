@@ -42,7 +42,6 @@ class PackResolver:
 
     def resolve(self) -> None:
         self.select_packs()
-        print(self.packs)
         for pack in self.packs:
             self.render_pack(pack)
         for paths in self.shipped_packs:
@@ -116,7 +115,7 @@ class PackResolver:
                     d["src"]= resources.files("devinit.templates.shipped") \
                     .joinpath(pack.lower()) \
                     .joinpath(str(self.ctx[pack].upper()+".j2"))
-                    
+
                 self.shipped_packs.append(d)
 
         return self.packs

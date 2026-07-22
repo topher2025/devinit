@@ -20,9 +20,10 @@ class Generator:
 
 
     @classmethod
-    def from_list(cls, template_path: Path, name:str, context:list, post_processor: PostProcessor = PostProcessor()) -> Generator:
+    def from_list(cls, template_path: Path, name:str, context:list, post_processor: PostProcessor | None = None) -> Generator:
         manifest = Manifest(template_path / "manifest.toml")
         cxt = Resolver.resolve(context, manifest, project=name)
+        if post_processor is None: post_processor = PostProcessor.from_ctx(cxt)
         return cls(manifest, cxt, post_processor)
     
 
