@@ -19,7 +19,6 @@ class Resolver:
         ctx = cls.merge(cli, ctx)
         #ctx = cls._clean(ctx, manifest)
         ctx = cls._add_reqs(ctx, kwargs)
-        print(ctx)
         return ctx
     
 
