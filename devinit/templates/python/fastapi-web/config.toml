@@ -34,21 +34,3 @@
 
 ## Generate async endpoints
 # async = true
-
-
-## Generate Docker support
-# docker = true
-
-## Python package manager
-## Options: "uv", "pip"
-# pm = "uv"
-
-
-## Initialize a Git repository
-# git = true
-
-## Create a GitHub repository
-# github = false
-
-## Generate GitHub Actions workflows
-# actions = false

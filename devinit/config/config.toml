@@ -1,0 +1,238 @@
+# ==============================================================================
+# devinit User Configuration
+# ==============================================================================
+
+## Your full name.
+## Used when generating project metadata.
+# name = "John Doe"
+
+
+# ==============================================================================
+# Global Defaults
+# ==============================================================================
+
+[defaults]
+
+## Default directory where new projects are created.
+# path = "."
+
+## Base name of the project's entry point.
+## Examples:
+##   Python -> main.py
+##   C      -> main.c
+##   C++    -> main.cpp
+##   Java   -> Main.java
+# entry = "main"
+
+## Initialize a Git repository.
+## Options: true, false
+# git = true
+
+## Generate a .gitignore file.
+## Options: true, false
+# gitignore = true
+
+## Generate Docker support when available.
+## Ignored by templates that do not support Docker.
+## Options: true, false
+# docker = false
+
+## Default project license.
+## Supported options:
+##   "MIT"
+## More licenses will be added in future releases.
+# license = "MIT"
+
+## Create a GitHub repository after generation.
+## Options: true, false
+# github = false
+
+## Make newly-created GitHub repositories public.
+## Only applies when github = true.
+## Options: true, false
+# public = false
+
+
+# ==============================================================================
+# Python
+# ==============================================================================
+
+[python]
+
+## Default Python version.
+## Supported options:
+##   "3.13"
+# version = "3.13"
+
+## Default Python package manager.
+## Supported options:
+##   "uv"
+##   "pip"
+# pm = "uv"
+
+## Default formatter/linter.
+## Supported options:
+##   "black"
+# linter = "black"
+
+
+# ==============================================================================
+# JavaScript / TypeScript
+# ==============================================================================
+
+## JavaScript templates are not yet supported.
+## These settings currently have no effect.
+
+[js]
+
+## Default Node.js version.
+## Supported options:
+##   "24"
+# version = "24"
+
+## Default package manager.
+## Supported options:
+##   "pnpm"
+##   "npm"
+##   "yarn"
+##   "bun"
+# pm = "pnpm"
+
+
+# ==============================================================================
+# Java
+# ==============================================================================
+
+## Java templates are not yet supported.
+## These settings currently have no effect.
+
+[java]
+
+## Default Java version.
+## Supported options:
+##   "21"
+# version = "21"
+
+## Default build system.
+## Supported options:
+##   "gradle"
+##   "maven"
+# build = "gradle"
+
+
+# ==============================================================================
+# C
+# ==============================================================================
+
+## C templates are not yet supported.
+## These settings currently have no effect.
+
+[c]
+
+## Default C language standard.
+## Supported options:
+##   "c17"
+##   "c23"
+# standard = "c23"
+
+## Default compiler.
+## Supported options:
+##   "gcc"
+##   "clang"
+# compiler = "gcc"
+
+## Default build system.
+## Supported options:
+##   "cmake"
+##   "make"
+# build = "cmake"
+
+
+# ==============================================================================
+# C++
+# ==============================================================================
+
+## C++ templates are not yet supported.
+## These settings currently have no effect.
+
+[cpp]
+
+## Default C++ language standard.
+## Supported options:
+##   "c++20"
+##   "c++23"
+# standard = "c++23"
+
+## Default compiler.
+## Supported options:
+##   "g++"
+##   "clang++"
+# compiler = "g++"
+
+## Default build system.
+## Supported options:
+##   "cmake"
+##   "make"
+# build = "cmake"
+
+
+# ==============================================================================
+# Rust
+# ==============================================================================
+
+## Rust templates are not yet supported.
+## These settings currently have no effect.
+
+[rust]
+
+## Default Rust toolchain.
+## Supported options:
+##   "stable"
+##   "beta"
+##   "nightly"
+# toolchain = "stable"
+
+
+# ==============================================================================
+# Go
+# ==============================================================================
+
+## Go templates are not yet supported.
+## These settings currently have no effect.
+
+[go]
+
+## Default Go version.
+## Supported options:
+##   "1.25"
+# version = "1.25"
+
+
+# ==============================================================================
+# Swift
+# ==============================================================================
+
+## Swift templates are not yet supported.
+## These settings currently have no effect.
+
+[swift]
+
+## Default Swift version.
+## Supported options:
+##   "6"
+# version = "6"
+
+
+# ==============================================================================
+# C#
+# ==============================================================================
+
+## C# templates are not yet supported.
+## These settings currently have no effect.
+
+[csharp]
+
+## Default .NET / C# version.
+## Supported options:
+##   "12"
+# version = "12"

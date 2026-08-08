@@ -7,20 +7,41 @@ docker = false
 entry = "main"
 gitignore = true
 license = "MIT"
-readme = true
 github = false
 public = false
 
 [python]
 version = "3.13"
-package_tool = "uv"
+pm = "uv"
 linter = "black"
-pytest = true
+pytest = false
 
-[python.flask]
-blueprints = true
-templates = true
-static = true
+[js]
+version = "24"
+pm = "pnpm"
 
-[python.fastapi-web]
-git = false
+[java]
+version = "21"
+build = "gradle"
+
+[c]
+standard = "c23"
+compiler = "gcc"
+build = "cmake"
+
+[cpp]
+standard = "c++23"
+compiler = "g++"
+build = "cmake"
+
+[rust]
+toolchain = "stable"
+
+[go]
+version = "1.25"
+
+[swift]
+version = "6"
+
+[csharp]
+version = "12"
