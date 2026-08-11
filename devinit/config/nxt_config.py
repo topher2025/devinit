@@ -4,6 +4,12 @@ from importlib.resources import files
 from pathlib import Path
 import shutil
 from functools import wraps
+import os
+import sys
+import subprocess
+from devinit.utils.xp import open_file
+from devinit.exceptions import ConfigNoValidPath
+
 
 
 def public(func):
@@ -24,14 +30,17 @@ class Config:
         self.prefs = load_config_document()
 
     @classmethod
-    def _checkey(cls, k: str, d: dict, c: list):
+    def _checkey(cls, k: str, d: dict, c: list, u=False):
         l = []
         if k in d:
+            u=True
+        if u:
             l.append(c + [k])
 
         for kk, vv in d.items():
             if isinstance(vv, dict):
-                l.extend(cls._checkey(k, vv, c + [kk]))
+                l.extend(cls._checkey(k, vv, c + [kk], u))
+        
         return l
 
     @staticmethod
@@ -64,7 +73,7 @@ class Config:
             shutil.copy(Path(str(default)), USER_CONFIG)
 
 
-    def _resolve_path(self, arg: list):
+    def _resolve_path(self, arg: list) -> list:
         matches: list[list[str]] = []
         valid = []
         if len(arg) == 0:
@@ -73,23 +82,21 @@ class Config:
             if arg[0] in self.defaults["defaults"]:
                 matches.append(["defaults", arg[0]])
         else:
-            matches.extend(self._checkey(arg[-1], self.defaults, []))
+            matches.extend(self._checkey(arg[-1], self.defaults, [], u=arg[-1] in self.defaults["defaults"]))
 
         for l in matches:
             if self._is_subset(l, arg):
                 valid.append(l)
         
-        
         if len(valid) != 1:
-            return []
+            raise ConfigNoValidPath
         return valid[0]
 
 
 
     @public
-    def set_value(self, k, v):
+    def set_value(self, k:list, v:str):
         key = self._resolve_path(k)
-
         cur = self.prefs
         for w in key[:-1]:
             cur = cur.setdefault(w, {})
@@ -97,7 +104,7 @@ class Config:
         self._overwrite_prefs()
 
     @public
-    def get_value(self, k):
+    def get_value(self, k:list):
         key = self._resolve_path(k)
 
         cur = self.prefs
@@ -106,7 +113,7 @@ class Config:
         return cur[key[-1]]
 
     @public
-    def unset_value(self, k):
+    def unset_value(self, k:list):
         key = self._resolve_path(k)
 
         cur = self.prefs
@@ -119,4 +126,17 @@ class Config:
     def reset(self):
         self.prefs = {}
         self._overwrite_prefs()
+
+
+    @public
+    def list(self, k:list=[]):
+        key = self._resolve_path(k)
         
+        cur = self.prefs
+        for w in key[:-1]:
+            cur = cur.setdefault(w, {})
+        return cur
+
+    @public
+    def edit(self):
+        open_file(USER_CONFIG)

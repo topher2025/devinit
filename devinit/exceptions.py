@@ -32,3 +32,7 @@ class ConfigLoaderDependencyError(ConfigError):
                 f"Got: {', '.join(dependency_names)}"
             )
         super().__init__(msg)
+
+class ConfigNoValidPath(ConfigError):
+    def __init__(self):
+        super().__init__("No valid key paths could be infered")
