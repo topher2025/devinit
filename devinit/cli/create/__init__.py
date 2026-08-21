@@ -1,11 +1,18 @@
 import typer
 from pathlib import Path
 
+from devinit.config.utils import require_name
 from devinit.generators.generator import Generator
 from devinit.cli.create.python import python
 
 app = typer.Typer()
 app.add_typer(python, name="python")
+
+@app.callback()
+def create():
+    require_name()
+
+
 
 @app.command(
     context_settings={

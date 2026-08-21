@@ -78,7 +78,9 @@ class Config:
         if len(arg) == 0:
             pass
         elif len(arg) == 1:
-            if arg[0] in self.defaults["defaults"]:
+            if arg[0] in self.defaults:
+                matches.append([arg[0]])
+            elif arg[0] in self.defaults["defaults"]:
                 matches.append(["defaults", arg[0]])
         else:
             matches.extend(self._checkey(arg[-1], self.defaults, [], u=arg[-1] in self.defaults["defaults"]))
@@ -95,17 +97,19 @@ class Config:
 
     @public
     def set_value(self, k:list, v:str):
-        key = self._resolve_path(k)
-        cur = self.prefs
-        for w in key[:-1]:
-            cur = cur.setdefault(w, {})
-        cur[key[-1]] = v
+        if len(k) == 1 and k[0] == "fullname":
+            self.prefs["fullname"] = v
+        else:
+            key = self._resolve_path(k)
+            cur = self.prefs
+            for w in key[:-1]:
+                cur = cur.setdefault(w, {})
+            cur[key[-1]] = v
         self._overwrite_prefs()
 
     @public
     def get_value(self, k:list):
         key = self._resolve_path(k)
-
         cur = self.prefs
         for w in key[:-1]:
             cur = cur.setdefault(w, {})

@@ -44,7 +44,6 @@ def _load_framework(lang: str, framework: str, config: dict) -> dict:
         load.update(_flatten(config[lang][framework]))
     except KeyError:
         pass
-    
     return load
 
 
@@ -64,10 +63,11 @@ def load_config(framework: str | None = None, lang: str | None = None) -> dict:
         raise ConfigLoaderDependencyError("lang", "framework")
     
     config = _load_toml_dict(USER_CONFIG)
+    fn = config.get("fullname", "John Doe")
 
     if framework and lang:
         config = _load_framework(lang, framework, config)
-        
+    config["fullname"] = fn
     return config
 
 
