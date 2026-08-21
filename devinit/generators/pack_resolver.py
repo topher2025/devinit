@@ -84,7 +84,7 @@ class PackResolver:
 
             # variant choice
             if hasattr(argument, "choices"):
-                if hasattr(argument.choices, value):
+                if hasattr(argument.choices, str(value)):
                     choice = getattr(argument.choices, value)
 
                     if getattr(choice, "pack", ""):

@@ -67,9 +67,8 @@ class Config:
     @classmethod
     def _write_defaults(cls):
         default = files("devinit.config") / "config.toml"
-
         if not USER_CONFIG.exists():
-            USER_CONFIG.mkdir(parents=True, exist_ok=True)
+            USER_CONFIG.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(Path(str(default)), USER_CONFIG)
 
 

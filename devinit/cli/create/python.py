@@ -1,5 +1,5 @@
 import typer
-from importlib.metadata import version as package_version
+from importlib.resources import as_file, files
 from pathlib import Path
 from typing import Annotated, Literal
 
@@ -49,7 +49,7 @@ def flask(
     )
 
 
-@python.commmand()
+@python.command()
 def fastapi(
     name: str,
     path: Path | None = PathOption,
@@ -58,7 +58,7 @@ def fastapi(
         "--actions/--no-actions",
         help="Whether to integrate GitHub Actions.",
     ),
-    async: bool | None = typer.Option(
+    aasync: bool | None = typer.Option(
         None,
         "--async/--no-async",
         help="Will the web app use async endpoints.",
@@ -88,6 +88,8 @@ def fastapi(
         help="Python project manager to use",
     ),
 ):
-    generator = Generator.from_list(path, name, locals())
-    generator.generate()
+    with as_file(files("devinit.templates.python") / "fastapi-web") as template_path:
+        generator = Generator.from_locals(template_path, name, locals())
+        generator.generate()
+
 

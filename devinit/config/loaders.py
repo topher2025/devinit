@@ -4,9 +4,10 @@ from importlib.resources.abc import Traversable
 import tomlkit
 from tomlkit import TOMLDocument
 from devinit.exceptions import *
+from devinit.utils.xp import config_path
 
 
-USER_CONFIG = Path.home() / ".config" / "devinit" / "config.toml"
+USER_CONFIG: Path = config_path()
 PathLike = Path | Traversable
 
 
