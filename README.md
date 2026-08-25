@@ -5,6 +5,11 @@
 
 ## Install
 
+### Install from TestPyPI
+
+```bash
+uv pip install --index-url https://test.pypi.org/simple/ devinit
+```
 
 ### Install from the source code
 
@@ -12,7 +17,7 @@ From a local checkout of this repository:
 
 ```bash
 cd /path/to/devinit
-python -m pip install -e .
+uv pip install -e .
 ```
 
 If you use `uv`:

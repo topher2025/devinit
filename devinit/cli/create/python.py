@@ -3,17 +3,7 @@ from importlib.resources import as_file, files
 from pathlib import Path
 from typing import Annotated, Literal
 
-from devinit.cli.option_defs import (
-    GitOption,
-    DockerOption,
-    EntryOption,
-    PathOption,
-    VersionOption,
-    GithubOption,
-    PublicOption,
-    LicenseOption,
-)
-from devinit.models import option_classes
+from devinit.cli.option_defs import *
 from devinit.config.config import Config
 from devinit.generators.python import FlaskGenerator
 from devinit.cli.create.update import updater
@@ -39,25 +29,16 @@ def flask(
     ),
     license: str | None = LicenseOption,
 ):
-    context = Config.resolve(locals(), "python", "flask")
-
-    updater(
-        generator=FlaskGenerator,
-        context=context,
-        name=name,
-        output=context["path"]
-    )
+    with as_file(files("devinit.templates.python") / "flask") as template_path:
+        generator = Generator.from_locals(template_path, name, locals())
+        generator.generate()
 
 
 @python.command()
 def fastapi(
     name: str,
     path: Path | None = PathOption,
-    actions: bool | None = typer.Option(
-        None,
-        "--actions/--no-actions",
-        help="Whether to integrate GitHub Actions.",
-    ),
+    actions: bool | None = ActionsOption,
     aasync: bool | None = typer.Option(
         None,
         "--async/--no-async",
@@ -83,10 +64,7 @@ def fastapi(
         None,
         help="Python library to use for DB ORM",
     ),
-    pm: Literal["pip", "uv"] | None = typer.Option(
-        None,
-        help="Python project manager to use",
-    ),
+    pm: Literal["pip", "uv"] | None = PMOption,
 ):
     with as_file(files("devinit.templates.python") / "fastapi-web") as template_path:
         generator = Generator.from_locals(template_path, name, locals())
