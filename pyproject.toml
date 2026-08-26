@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "devinit"
-version = "0.2.0-alpha1"
+version = "0.2.1-alpha1"
 description = "Automatic project setup tool"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -25,3 +25,6 @@ devinit = "devinit.main:app"
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.setuptools.package-data]
+devinit = ["templates/**/*"]
