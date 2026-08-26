@@ -5,7 +5,6 @@ from typing import Annotated, Literal
 
 from devinit.cli.option_defs import *
 from devinit.config.config import Config
-from devinit.generators.python import FlaskGenerator
 from devinit.cli.create.update import updater
 
 
@@ -20,12 +19,12 @@ def flask(
     docker: bool | None = DockerOption,
     entry: str | None = EntryOption,
     path: Path | None = PathOption,
-    version: str | None = VersionOption,
     github: bool | None = GithubOption,
     public: bool | None = PublicOption,
     blueprints: bool | None = typer.Option(
         None,
         "--blueprints/--no-blueprints",
+        help="Whether to use blueprints as part ofthe project structure.",
     ),
     license: str | None = LicenseOption,
 ):

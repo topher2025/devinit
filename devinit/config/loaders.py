@@ -28,7 +28,12 @@ def _defaults_resource() -> Traversable:
 def _flatten(d: dict, r: bool = True) -> dict:
     flat = {}
     for key, value in d.items():
-        if isinstance(value, dict):
+        if key == "arguments":
+            for k, v in d[key].items():
+                print(k, v)
+                flat[k] = v["default"]
+                print(flat[k])
+        elif isinstance(value, dict):
             if r:
                 flat.update(_flatten(value))
         else:
@@ -50,6 +55,8 @@ def _load_framework(lang: str, framework: str, config: dict) -> dict:
 
 def load_manifest(path: Path, flatten: bool = True) -> dict:
     if flatten:
+        print(_load_toml_dict(path))
+        print(_flatten(_load_toml_dict(path)))
         return _flatten(_load_toml_dict(path))
     return _load_toml_dict(path)
 

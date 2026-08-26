@@ -2,7 +2,6 @@ from pathlib import Path
 
 from devinit.config.resolver import Resolver
 from devinit.generators.post_processor import PostProcessor
-from devinit.generators.template import Template
 from devinit.generators.manifest import Manifest
 from devinit.generators.pack_resolver import PackResolver
 

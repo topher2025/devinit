@@ -13,10 +13,13 @@ class Resolver:
         
         defaults = load_defaults_config(lang=ctx["language"], framework=ctx["name"])
         prefs = load_config(lang=ctx["language"], framework=ctx["name"])
-
+        print(ctx["blueprints"])        
         ctx = cls.merge(defaults, ctx)
+        print(ctx["blueprints"])        
         ctx = cls.merge(prefs, ctx)
+        print(ctx["blueprints"])
         ctx = cls.merge(cli, ctx)
+        print(ctx["blueprints"])
         #ctx = cls._clean(ctx, manifest)
         ctx = cls._add_reqs(ctx, kwargs)
         return ctx
@@ -57,10 +60,13 @@ class Resolver:
             merged[key] = value
         for key, value in beta.items():
             if key in merged:
-                if isinstance(value, dict) and isinstance(merged[key], dict):
+                if merged[key] is None:
+                    merged[key] = value
+                elif isinstance(value, dict) and isinstance(merged[key], dict):
                     merged[key] = Resolver.merge(merged[key], beta[key])
                 elif isinstance(value, list) and isinstance(merged[key], list):
                     merged[key] = Resolver._merge_list(merged[key], value)
+                
             if key not in merged:
                 merged[key] = value
 
@@ -85,7 +91,7 @@ class Resolver:
         keys.extend(manifest.options)
         print(keys)
         print()
-        print(ctx)
+        
 
         for k, v in ctx.items():
             if k in keys:

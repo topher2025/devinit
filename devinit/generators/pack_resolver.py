@@ -77,6 +77,7 @@ class PackResolver:
             if hasattr(self.manifest.arguments, name):
                 argument = getattr(self.manifest.arguments, name)
             else: continue
+            print(argument)
 
             # standalone pack
             if hasattr(argument, "pack") and value:
@@ -106,7 +107,7 @@ class PackResolver:
         for pack, name in self.SHIPPED_PACKS.items():
             if pack in self.packs:
                 continue
-            if pack in self.ctx:
+            if pack in self.ctx and self.ctx[pack]:
                 d = {"dst":  Path(self.ctx["path"]) / self.ctx["project"] / self.SHIPPED_PACKS[pack]}
 
                 if pack == "git":
