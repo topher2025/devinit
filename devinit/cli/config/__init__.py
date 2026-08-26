@@ -32,7 +32,6 @@ def unset_config(key: str):
 
 @app.command("get")
 def get_config(key: str):
-    print(key)
     value = config.get_value(re.split(r"[./]+", key))
     print(Pretty({key: value}))
 

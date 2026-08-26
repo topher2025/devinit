@@ -1,0 +1,90 @@
+name = "flask"
+display_name = "Flask Application"
+version = "1.0.0"
+description = "A full Flask web application"
+language = "python"
+
+[requirements]
+python = ">=3.12"
+
+
+[args]
+context = [
+    "fullname",
+    "year",
+]
+options =[
+  "blueprints",
+  "docker",
+  "git",
+  "github",
+  "pm",
+]
+
+# ----------------------------------------------------------------------
+# Dependencies
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# Arguments
+# ----------------------------------------------------------------------
+
+[arguments.always]
+type = "boolean"
+description = "Always include this argument in the context"
+pack = "common"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.blueprints]
+type = "boolean"
+description = "Generate blueprints"
+pack = "blueprints"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.docker]
+type = "boolean"
+description = "Generate Docker support"
+pack = "docker"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.git]
+type = "boolean"
+description = "Initialize a Git repository"
+default = true
+
+# ----------------------------------------------------------------------
+
+[arguments.github]
+type = "boolean"
+description = "Create a GitHub repository"
+requires = ["git",]
+pack = "github"
+default = false
+
+# ----------------------------------------------------------------------
+
+[arguments.pm]
+type = "choice"
+default = "uv"
+description = "Python package manager"
+
+[arguments.pm.choices.pip]
+pack = ""
+
+[arguments.pm.choices.uv]
+pack = ""
+
+# ----------------------------------------------------------------------
+# Groups
+# ----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
+# Variant Resolution
+# ----------------------------------------------------------------------

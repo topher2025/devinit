@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "devinit"
-version = "0.1.0"
-description = "Automatic Linux development environment setup tool"
+version = "0.2.0-alpha"
+description = "Automatic project setup tool"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"

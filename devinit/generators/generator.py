@@ -2,7 +2,6 @@ from pathlib import Path
 
 from devinit.config.resolver import Resolver
 from devinit.generators.post_processor import PostProcessor
-from devinit.generators.template import Template
 from devinit.generators.manifest import Manifest
 from devinit.generators.pack_resolver import PackResolver
 
@@ -26,6 +25,13 @@ class Generator:
         if post_processor is None: post_processor = PostProcessor.from_ctx(cxt)
         return cls(manifest, cxt, post_processor)
     
+    @classmethod
+    def from_locals(cls, template_path: Path, name:str, context:dict, post_processor: PostProcessor | None = None) -> Generator:
+        manifest = Manifest(template_path / "manifest.toml")
+        cxt = Resolver.resolve(context, manifest, project=name)
+        if post_processor is None: post_processor = PostProcessor.from_ctx(cxt)
+        return cls(manifest, cxt, post_processor)
+
 
     def generate(self) -> None:
         pack_resolver = PackResolver(self.manifest, self.context, shipped=self.shipped)

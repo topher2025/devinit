@@ -1,0 +1,4 @@
+# MANIFEST.in
+
+include devinit/config/*.toml
+recursive-include devint/templates *

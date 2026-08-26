@@ -4,9 +4,10 @@ from importlib.resources.abc import Traversable
 import tomlkit
 from tomlkit import TOMLDocument
 from devinit.exceptions import *
+from devinit.utils.xp import config_path
 
 
-USER_CONFIG = Path.home() / ".config" / "devinit" / "config.toml"
+USER_CONFIG: Path = config_path()
 PathLike = Path | Traversable
 
 
@@ -27,7 +28,12 @@ def _defaults_resource() -> Traversable:
 def _flatten(d: dict, r: bool = True) -> dict:
     flat = {}
     for key, value in d.items():
-        if isinstance(value, dict):
+        if key == "arguments":
+            for k, v in d[key].items():
+                print(k, v)
+                flat[k] = v["default"]
+                print(flat[k])
+        elif isinstance(value, dict):
             if r:
                 flat.update(_flatten(value))
         else:
@@ -43,13 +49,14 @@ def _load_framework(lang: str, framework: str, config: dict) -> dict:
         load.update(_flatten(config[lang][framework]))
     except KeyError:
         pass
-    
     return load
 
 
 
 def load_manifest(path: Path, flatten: bool = True) -> dict:
     if flatten:
+        print(_load_toml_dict(path))
+        print(_flatten(_load_toml_dict(path)))
         return _flatten(_load_toml_dict(path))
     return _load_toml_dict(path)
 
@@ -63,10 +70,11 @@ def load_config(framework: str | None = None, lang: str | None = None) -> dict:
         raise ConfigLoaderDependencyError("lang", "framework")
     
     config = _load_toml_dict(USER_CONFIG)
+    fn = config.get("fullname", "John Doe")
 
     if framework and lang:
         config = _load_framework(lang, framework, config)
-        
+    config["fullname"] = fn
     return config
 
 

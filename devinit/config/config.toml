@@ -4,7 +4,7 @@
 
 ## Your full name.
 ## Used when generating project metadata.
-# name = "John Doe"
+# fullname = "John Doe"
 
 
 # ==============================================================================
